@@ -1,0 +1,26 @@
+body {
+    background-color: darkgray
+}
+
+.instruction {
+    padding-top: 80px;
+}
+
+.userAdjustLabel {
+    padding-top: 40px;
+}
+
+#ttime,
+#reset {
+    font-size: 40px;
+}
+
+.glyphplustime,
+.glyphplusreset {
+    padding-right: 10px;
+}
+
+.glyphminustime,
+.glyphminusreset {
+    padding-left: 10px;
+}
