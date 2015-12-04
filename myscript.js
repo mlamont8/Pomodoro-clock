@@ -1,7 +1,17 @@
+//Run Reset
+var resetToggle = 0;
+
+function restTimer() {
+    var ttime = $('#reset').text();
+    var setMinutes = ttime * 60;
+    startTimer(setMinutes, display);
+    resetToggle = 1;
+}
 //Runs Timer
 function startTimer(duration, display) {
     var timer = duration,
         minutes, seconds;
+    console.log(timer);
     setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -12,9 +22,17 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            timer = duration;
+            while (resetToggle = 0) {
+                timer = null;
+                clearInterval(timer);
+                restTimer();
+            }
+            timer = null;
+            clearInterval(timer);
+
         }
     }, 1000);
+
 }
 
 
@@ -52,5 +70,6 @@ $(document).ready(function () {
         var ttime = $('#ttime').text();
         var setMinutes = ttime * 60;
         startTimer(setMinutes, display);
+
     });
 });
