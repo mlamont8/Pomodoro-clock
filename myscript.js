@@ -1,6 +1,7 @@
-//Run Reset
 var resetToggle = 0;
+var display = document.querySelector('.timer');
 
+//Runs Reset after Initial Run
 function restTimer() {
     var ttime = $('#reset').text();
     var setMinutes = ttime * 60;
@@ -9,10 +10,13 @@ function restTimer() {
 }
 //Runs Timer
 function startTimer(duration, display) {
-    var timer = duration,
-        minutes, seconds;
+    var timer = duration;
+    var minutes = "0";
+    var seconds = "0";
     console.log(timer);
     setInterval(function () {
+        var display = document.querySelector('.timer');
+        console.log(display);
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -22,7 +26,7 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            while (resetToggle = 0) {
+            if (resetToggle == 0) {
                 timer = null;
                 clearInterval(timer);
                 restTimer();
