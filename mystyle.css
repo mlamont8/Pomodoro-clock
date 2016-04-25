@@ -23,23 +23,19 @@ body {
     padding-top: 40px;
 }
 
-#ttime,
-#reset {
-    font-size: 40px;
+
+#glyphminustime,
+#glyphminusreset,
+#glyphplustime,
+#glyphplusreset 
+{
+    padding: 5px;
 }
 
-.glyphplustime,
-.glyphplusreset {
-    padding-right: 10px;
-}
-
-.glyphminustime,
-.glyphminusreset {
-    padding-left: 10px;
-}
-
-.adjustButton {
-    padding: 20px;
+.adjustButton { 
+    padding: 10px;
+    
+    margin-top: -20px;
 }
 .clicker {
     padding-top: 80px;
@@ -57,4 +53,9 @@ body {
 .timer{
     font-size: 40px;
     padding-bottom: 40px;
+}
+#ttime, #reset{
+    padding: 20px 10px  0px 10px;
+    margin-bottom: 20px;
+    font-size: 40px;
 }
