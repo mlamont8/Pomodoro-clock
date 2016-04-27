@@ -1,5 +1,5 @@
-<html>
 
+<html>
 <head>
     <title>Pomodoro Clock</title>
 
@@ -14,6 +14,7 @@
 <!--  <link rel="stylesheet" href="files/font-awesome/css/font-awesome.min.css">-->
    <!-- <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
     <script src="myscript.js" type="text/javascript"></script>
+    <script src="http://guestso.com/extfiles/jquery-timer.js"></script>
 </head>
 
 <body>
@@ -36,7 +37,7 @@
         <div class="row">
             <div class="text-center userAdjust">
                 <p class="col-xs-6">
-                    <button type="button" class="btn btn-default adjustButton"><span class="glyphicon glyphicon-plus" id="glyphPlusTime"></span></button><span id="ttime">1</span>
+                    <button type="button" class="btn btn-default adjustButton"><span class="glyphicon glyphicon-plus" id="glyphPlusTime"></span></button><span id="ttime">25</span>
                     <button type="button" class="btn btn-default adjustButton"><span class="glyphicon glyphicon-minus" id='glyphMinusTime'></span></button>
                 </p>
                 <p class="col-xs-6">
@@ -58,20 +59,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="text-center timer"></div>
+            <div class="text-center timer" id="countdown"></div>
                 <div class = "row">
                 <button class="btn btn-default center-block pauseButton" type="submit"><span class = "glyphicon glyphicon-pause"></span> PAUSE</button>
                 </div>
                 <div class = "row">
                 <button class="btn btn-default center-block resumeButton" type="submit"> RESUME</button>
                 </div>
+                <div class = "row">
+                <button class="btn btn-default center-block stopButton" type="submit"> STOP/RESET</button>
+                </div>
         </div>
     </div>
-    <div>
-    </div>
-    </div>
-
-
+       
 </body>
 
 </html>

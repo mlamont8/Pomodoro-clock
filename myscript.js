@@ -1,54 +1,70 @@
-var resetToggle = 0;
-var isPaused = false;
-var display = document.querySelector('.timer');
+// Uses Jquery-timer to start, pause and increment timer.  found at https://github.com/jchavannes/jquery-timer
 
-//Runs Reset after Initial Run
-function restTimer() {
-    var ttime = $('#reset').text();
-    var setMinutes = ttime * 60;
-    $('status').empty();
-    $('status').html('RESETTING');
-    startTimer(setMinutes, display);
-    resetToggle = 1;
-}
-//Runs Timer
-function startTimer(duration, display, pause) {
-    var timer = duration;
-    var minutes = "0";
-    var seconds = "0";
-    console.log(timer);
-    if(!pause){
-    setInterval(function () {
-        var display = document.querySelector('.timer');
-        console.log(display);
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+var currentTime, count = 0; 
 
-        display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            if (resetToggle === 0) {
-                timer = null;
-                clearInterval(timer);
-                restTimer();
+var timer = new (function() {
+
+    var $countdown;
+    var $form;
+    var incrementTime = 70;
+       
+    $(function() {
+
+        // Setup the timer
+        $countdown = $('#countdown');
+        timer.Timer = $.timer(updateTimer, incrementTime, false);
+
+    });
+
+    function updateTimer() {
+
+        // Output timer position
+        var timeString = formatTime(currentTime);
+        $countdown.html(timeString);
+
+        // If timer is complete, check to see if reset timer has run, if not, reset time and run again.  If so, send alert.
+        if (currentTime === 0) {
+            
+            console.log(count);
+            if (count === 1){
+            timer.Timer.stop();
+            alert('Pomodoro Clock Complete!');
+            //timer.Timer.resetCountdown();
+                $("#spinner, .pauseButton, .resumeButton, .status, stopButton").hide();
+                $('.mainButton').show();
+            return;
             }
-            timer = null;
-            clearInterval(timer);
-
+            currentTime = $('#reset').text() * 60000;
+            count += 1;
+            $('.status').html('RESET TIMER');
         }
-    }, 1000);
+
+        // Increment timer position
+        currentTime -= incrementTime;
+        if (currentTime < 0) currentTime = 0;
+
     }
+
+
+});
+
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {str = '0' + str;}
+    return str;
 }
-function pauseTimer (currentMin){
-    
+function formatTime(time) {
+    time = time / 10;
+    var min = parseInt(time / 6000),
+        sec = parseInt(time / 100) - (min * 60);
+    return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2);
 }
 
 
 $(document).ready(function () {
-$("#spinner, .pauseButton, .resumeButton").hide();
+$("#spinner, .pauseButton, .resumeButton, .stopButton").hide();
    
     var display = document.querySelector('.timer');
     $('button').addClass('disabled');
@@ -76,22 +92,38 @@ $("#spinner, .pauseButton, .resumeButton").hide();
         });
     });
 
-    //When clicker div is clicked, hourglass is removed, spinner is shown until either another click or timer is expired.
+ 
 
     $(".clicker").click(function () {
+        $('.status').empty();
         var ttime = $('#ttime').text();
-        var setMinutes = ttime * 60;
+        currentTime = ttime * 60000;
         $(".mainButton, .adjustButton").hide();
-        $(".pauseButton, #spinner").show();
-       // $('.status').html('TIMER');
-        var pause = false;
-        startTimer(setMinutes, display, pause);
+        $(".pauseButton, .stopButton, #spinner").show();
+        $('.status').append('SESSION TIMER');
+       
+            timer.Timer.play();
+
 // When Pause button is selected, timer is paused, spinner is removed, resume button is shown, pause button is removed.
     });
     $(".pauseButton").click(function(){
-        $(".pauseButton, #spinner").hide();
+        $(".pauseButton, #spinner, .stopButton").hide();
         $(".resumeButton").show();
-        e.preventDefault();
+        timer.Timer.pause();
+    });
+    // When resumed, pause and spinners are shown, resume is removed, timer is continued.
+    $(".resumeButton").click(function(){
+     $(".pauseButton, #spinner, .stopButton").show();
+        $(".resumeButton, .adjustButton").hide();
+        timer.Timer.play();
+    });
+    // Stop button resets timer
+    $(".stopButton").click(function(){
+        $(".pauseButton, #spinner, .stopButton").hide();
+        $('.adjustButton, .mainButton').show();
+        $('.status').empty();
+        $('.status').append('TIMER STOPPED');
+        timer.Timer.stop();
     });
 
 });
