@@ -10,7 +10,7 @@ body {
     opacity: 1;
 }
 .btn :hover {
-    opacity: 0.75;
+    opacity: 0.20;
 }
 
 #smallTitle {

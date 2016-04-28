@@ -26,7 +26,7 @@ var timer = new (function() {
 
         // If timer is complete, check to see if reset timer has run, if not, reset time and run again.  If so, send alert.
         if (currentTime === 0) {
-            
+            playSound('http://guestso.com/extfiles/pomo-alarm.mp3');
             console.log(count);
             if (count === 1){
             timer.Timer.stop();
@@ -50,6 +50,11 @@ var timer = new (function() {
 
 });
 
+function playSound(url) {
+    var a = new Audio(url);
+    a.play();
+}
+
 function pad(number, length) {
     var str = '' + number;
     while (str.length < length) {str = '0' + str;}
@@ -67,7 +72,7 @@ $(document).ready(function () {
 $("#spinner, .pauseButton, .resumeButton, .stopButton").hide();
    
     var display = document.querySelector('.timer');
-    $('button').addClass('disabled');
+    //$('button').addClass('disabled');
 
     // Updates time
     $("#glyphPlusTime").click(function () {
